@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recipe.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>{{ recipe.name }}</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'recipe_list' %}">Recipes</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% if recipe.image %}
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" style="max-width: 400px;">
+        {% else %}
+            <img src="{% static 'images/default.png' %}" alt="Default Image" style="max-width: 400px;">
+        {% endif %}
+        <h2>Description</h2>
+        <p>{{ recipe.description|default:"No description provided." }}</p>
+        <h2>Ingredients</h2>
+        <p>{{ recipe.ingredients }}</p>
+        <h2>Cooking Time</h2>
+        <p>{{ recipe.cooking_time }} minutes</p>
+        <h2>Difficulty</h2>
+        <p>{{ recipe.difficulty }}</p>
+    </main>
+    <footer>
+        <p>Return to <a href="{% url 'recipe_list' %}">recipe list</a>.</p>
+    </footer>
+</body>
+</html>

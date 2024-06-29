@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes List</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Recipe Collection</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'recipe_list' %}">Recipes</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Our Recipes</h2>
+        <ul>
+            {% for recipe in recipes %}
+            <li>
+                <a href="{% url 'recipe_detail' recipe.id %}">
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="recipe-thumbnail">
+                    <h3>{{ recipe.name }}</h3>
+                </a>
+                <p>{{ recipe.description|default:"No description provided." }}</p>
+            </li>
+            {% empty %}
+            <li>No recipes available.</li>
+            {% endfor %}
+        </ul>
+    </main>
+    <footer>
+        <p>© {{ year }} Recipe Collection. All rights reserved.</p>
+    </footer>
+</body>
+</html>
