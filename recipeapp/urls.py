@@ -18,9 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import custom_login, custom_logout, logout_success, profile
+
+app_name = 'recipeapp'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', custom_login, name='custom_login'),
+    path('profile/', profile, name='profile'),
+    path('logout/', custom_logout, name='logout'),
+    path('logout_success/', logout_success, name='logout_success'),
     path('', include('recipes.urls')),
 ]
 
