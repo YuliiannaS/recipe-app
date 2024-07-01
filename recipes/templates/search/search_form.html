@@ -5,30 +5,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Recipes</title>
+    <title>Search</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header>
-        <h1>Welcome to My Recipe Collection</h1>
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="{% url 'recipe_list' %}">Recipes</a></li>
                 <li><a href="{% url 'search_recipes' %}">Search</a></li>
                 <li><a href="{% url 'recipe_charts' %}">Charts</a></li>
-                <li><a href="/login">Login</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <div class="container">
-            <h1>User Profile</h1>
-            <p>Welcome, {{ user.username }}!</p>
-            <p>Email: {{ user.email }}</p>
-            <p>First name: {{ user.first_name }}</p>
-            <p>Last name: {{ user.last_name }}</p>
-            <a href="/logout/">Logout</a>
-        </div>
+        <form method="get" action="{% url 'search_recipes' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Search</button>
+        </form>
     </main>
 </body>

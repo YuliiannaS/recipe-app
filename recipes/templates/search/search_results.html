@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <h1>Recipe Collection</h1>
+        <h1>Search Result</h1>
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
@@ -22,23 +22,7 @@
         </nav>
     </header>
     <main>
-        <h2>Our Recipes</h2>
-        <ul>
-            {% for recipe in recipes %}
-            <li>
-                <a href="{% url 'recipe_detail' recipe.id %}">
-                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="recipe-thumbnail">
-                    <h3>{{ recipe.name }}</h3>
-                </a>
-                <p>{{ recipe.description|default:"No description provided." }}</p>
-            </li>
-            {% empty %}
-            <li>No recipes available.</li>
-            {% endfor %}
-        </ul>
+        <h2>Search Results</h2>
+        <div>{{ dataframe|safe }}</div>
     </main>
-    <footer>
-        <p>© {{ year }} Recipe Collection. All rights reserved.</p>
-    </footer>
 </body>
-</html>
