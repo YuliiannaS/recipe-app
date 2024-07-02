@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'recipe_list' %}">Recipes</a></li>
+                <li><a href="{% url 'search_recipes' %}">Search</a></li>
+                <li><a href="{% url 'recipe_charts' %}">Charts</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'add_recipe' %}">Add Recipe</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                {% else %}
+                    <li><a href="/login">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
     <main>
         <h1>You’ve successfully logged out.</h1>
         <p>Thank you for visiting. Click <a href="/login/">here</a> to log in again.</p>

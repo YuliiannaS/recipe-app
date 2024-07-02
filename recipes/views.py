@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Recipe
 from .forms import SearchForm
 from django.db.models import Q, Count
 from django.urls import reverse
 from io import BytesIO
+from django.contrib.auth.decorators import login_required
+from .forms import RecipeForm
 import pandas as pd
 import matplotlib.pyplot as plt
 import base64
@@ -64,3 +66,14 @@ def recipe_charts(request):
     pie_chart = base64.b64encode(buf.getvalue()).decode('utf-8')
 
     return render(request, 'recipes/recipe_charts.html', {'bar_graph': bar_graph, 'pie_chart': pie_chart})
+
+@login_required(login_url='/login/')
+def add_recipe(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('recipe_list')
+    else:
+        form = RecipeForm()
+    return render(request, 'recipes/add_recipe.html', {'form': form})
